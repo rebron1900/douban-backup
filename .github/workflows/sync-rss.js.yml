@@ -246,7 +246,7 @@ jobs:
         
     - name: copy file
       run: |
-        cp -f ./data/douban/* ${{ env. github.workspace }}/data/douban/
+        cp -f ./data/douban/ ${{ env. github.workspace }}/data/douban/
 
 
 #     - name: Git Add and Commit
