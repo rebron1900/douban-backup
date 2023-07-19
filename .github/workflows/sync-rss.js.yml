@@ -114,7 +114,7 @@ jobs:
         jq -c -s '{data: map(.data[]) | unique | sort_by(.created_time) | reverse, pages: map(.pages)[0], count: map(.count)[0]}' *.json > movie.json
 
         # 更新 NeoDB 数据
-        cp -f movie.json ${{ env.WORK_DIR }}/data/neodb/
+        cp -f movie.json ${{  github.workspace }}/data/neodb/
 
 
 
@@ -204,7 +204,7 @@ jobs:
         jq -c -s '{data: map(.data[]) | unique | sort_by(.created_time) | reverse, pages: map(.pages)[0], count: map(.count)[0]}' *.json > book.json
 
         # 更新 NeoDB 数据
-        cp -f book.json ${{ env.WORK_DIR }}/data/neodb/
+        cp -f book.json ${{ env. github.workspace }}/data/neodb/
 
 
 
@@ -243,6 +243,11 @@ jobs:
         type: book
         format: json
         dir: ./data/douban
+        
+    - name: copy file
+      run: |
+        cp -f ./data/douban/* ${{ env. github.workspace }}/data/douban/
+
 
 #     - name: Git Add and Commit
 #       uses: EndBug/add-and-commit@v9
@@ -256,12 +261,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
+      - name: copy file
+        run: |
+         cp -f  ${{ env. github.workspace }}/data ./data
+
       - name: Commit code
         uses: EndBug/add-and-commit@v9
         with:
          message: 'chore(data): update douban back data'
-         add: '.'
+         add: './data'
          
 #   commit_changes:
 #     needs: [DoubanBack, NeoDoubanMovie, NeoDoubanBook]
