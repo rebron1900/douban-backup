@@ -246,7 +246,7 @@ jobs:
         
     - name: copy file
       run: |
-        cp -f ./data/douban/ ${{ env. github.workspace }}/data/douban/
+        cp -r ./data/douban/ ${{ env. github.workspace }}/data/douban/
 
 
 #     - name: Git Add and Commit
@@ -264,7 +264,7 @@ jobs:
 
       - name: copy file
         run: |
-         cp -f  ${{ env. github.workspace }}/data ./data
+         cp -r  ${{ env. github.workspace }}/data ./data
 
       - name: Commit code
         uses: EndBug/add-and-commit@v9
